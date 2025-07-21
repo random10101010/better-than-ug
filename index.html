@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ultimate Guitar Copy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { margin:0; font-family: Arial, sans-serif; background: #f6f6f6; }
+    header { background: #222; color: #fff; padding: 16px 0; position: sticky; top: 0; z-index: 100; }
+    .header-content { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-weight: bold; font-size: 1.6em; letter-spacing: 2px; color: #ffd700; }
+    .search-bar input { padding: 8px; border-radius: 4px; border: none; width: 250px; }
+    .container { display: flex; max-width: 1200px; margin: 24px auto; gap: 24px; }
+    nav { background: #fff; min-width: 220px; padding: 16px; border-radius: 12px; box-shadow: 0 2px 8px #0002; height: fit-content; }
+    nav ul { list-style: none; padding: 0; }
+    nav li { margin: 12px 0; }
+    nav a { color: #333; text-decoration: none; font-weight: 500; }
+    nav a:hover { color: #ffd700; }
+    main { flex: 1; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px #0002; padding: 24px; }
+    .tab-list { padding: 0; margin: 0; list-style: none; }
+    .tab-item { margin-bottom: 24px; border-bottom: 1px solid #eee; padding-bottom: 16px; }
+    .tab-title { font-size: 1.2em; font-weight: bold; color: #222; }
+    .tab-meta { color: #666; font-size: 0.9em; margin-top: 2px; }
+    .tab-actions button { margin-top: 8px; background: #ffd700; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer; }
+    .tab-actions button:hover { background: #ffc300; }
+    footer { text-align: center; padding: 24px 0; background: #222; color: #fff; margin-top: 36px; }
+    @media (max-width: 800px) {
+      .container { flex-direction: column; gap: 0; }
+      nav { min-width: 0; margin-bottom: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <div class="logo">Ultimate Guitar</div>
+      <div class="search-bar">
+        <input type="text" placeholder="Search for songs, artists, chords...">
+      </div>
+    </div>
+  </header>
+  <div class="container">
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Top Tabs</a></li>
+        <li><a href="#">Chords</a></li>
+        <li><a href="#">Bass Tabs</a></li>
+        <li><a href="#">Ukulele</a></li>
+        <li><a href="#">Submit Tab</a></li>
+        <li><a href="#">Forum</a></li>
+        <li><a href="#">Lessons</a></li>
+      </ul>
+    </nav>
+    <main>
+      <h1>Latest Guitar Tabs</h1>
+      <ul class="tab-list">
+        <li class="tab-item">
+          <div class="tab-title">Wonderwall – Oasis</div>
+          <div class="tab-meta">Chords | Capo: 2 | Difficulty: Beginner</div>
+          <div class="tab-actions">
+            <button onclick="handleClick('Wonderwall – Oasis', 'View Tab')">View Tab</button>
+            <button onclick="handleClick('Wonderwall – Oasis', 'Add to Favourites')">Add to Favourites</button>
+          </div>
+        </li>
+        <li class="tab-item">
+          <div class="tab-title">Hotel California – Eagles</div>
+          <div class="tab-meta">Tab | Standard Tuning | Difficulty: Intermediate</div>
+          <div class="tab-actions">
+            <button onclick="handleClick('Hotel California – Eagles', 'View Tab')">View Tab</button>
+            <button onclick="handleClick('Hotel California – Eagles', 'Add to Favourites')">Add to Favourites</button>
+          </div>
+        </li>
+        <li class="tab-item">
+          <div class="tab-title">Nothing Else Matters – Metallica</div>
+          <div class="tab-meta">Tab | Standard Tuning | Difficulty: Advanced</div>
+          <div class="tab-actions">
+            <button onclick="handleClick('Nothing Else Matters – Metallica', 'View Tab')">View Tab</button>
+            <button onclick="handleClick('Nothing Else Matters – Metallica', 'Add to Favourites')">Add to Favourites</button>
+          </div>
+        </li>
+        <li class="tab-item">
+          <div class="tab-title">Riptide – Vance Joy</div>
+          <div class="tab-meta">Chords | Capo: 1 | Difficulty: Beginner</div>
+          <div class="tab-actions">
+            <button onclick="handleClick('Riptide – Vance Joy', 'View Tab')">View Tab</button>
+            <button onclick="handleClick('Riptide – Vance Joy', 'Add to Favourites')">Add to Favourites</button>
+          </div>
+        </li>
+        <li class="tab-item">
+          <div class="tab-title">Tears in Heaven – Eric Clapton</div>
+          <div class="tab-meta">Tab | Standard Tuning | Difficulty: Intermediate</div>
+          <div class="tab-actions">
+            <button onclick="handleClick('Tears in Heaven – Eric Clapton', 'View Tab')">View Tab</button>
+            <button onclick="handleClick('Tears in Heaven – Eric Clapton', 'Add to Favourites')">Add to Favourites</button>
+          </div>
+        </li>
+      </ul>
+    </main>
+  </div>
+  <footer>
+    &copy; 2025 Ultimate Guitar Copy &ndash; Made for Demo Purposes
+  </footer>
+  <script>
+    function handleClick(song, action) {
+      alert(action + " clicked for '" + song + "'");
+    }
+  </script>
+</body>
+</html>
