@@ -97,7 +97,7 @@ main {
 }
 
 /* Tab List styles */
-tab-list, tab-detail {
+tab-list, tab-detail, tab-import, guitar-tab-canvas {
   display: block;
   width: 100%;
 }

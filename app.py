@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, render_template, request
-from db import Database
+from db import Database, clean_tab_text
 
 app = Flask(__name__)
 db = Database()
@@ -12,7 +12,6 @@ def home():
 def api_tabs():
     q = request.args.get('q')
     data = db.search_tabs(q)
-    # id, title, artist, type, tuning, capo, difficulty
     res = []
     for row in data:
         res.append({
@@ -26,7 +25,6 @@ def api_tab(tab_id):
     tab = db.get_tab(tab_id)
     if not tab:
         return jsonify({'error': 'Not found'}), 404
-    # id, title, artist, type, tuning, capo, difficulty, content
     return jsonify({
         'id': tab[0], 'title': tab[1], 'artist': tab[2], 'type': tab[3],
         'tuning': tab[4], 'capo': tab[5], 'difficulty': tab[6], 'content': tab[7]
@@ -44,6 +42,7 @@ def import_tab():
     if not (title and artist and tabfile):
         return jsonify({'error': 'Missing fields'}), 400
     content = tabfile.read().decode('utf-8')
+    content = clean_tab_text(content)
     tab_id = db.add_tab(title, artist, type_, tuning, capo, difficulty, content)
     return jsonify({'id': tab_id}), 201
 
