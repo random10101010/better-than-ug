@@ -32,5 +32,20 @@ def api_tab(tab_id):
         'tuning': tab[4], 'capo': tab[5], 'difficulty': tab[6], 'content': tab[7]
     })
 
+@app.route('/api/import_tab', methods=['POST'])
+def import_tab():
+    title = request.form.get('title')
+    artist = request.form.get('artist')
+    type_ = request.form.get('type', 'Tab')
+    tuning = request.form.get('tuning', 'Standard')
+    capo = request.form.get('capo', '')
+    difficulty = request.form.get('difficulty', 'Intermediate')
+    tabfile = request.files.get('tabfile')
+    if not (title and artist and tabfile):
+        return jsonify({'error': 'Missing fields'}), 400
+    content = tabfile.read().decode('utf-8')
+    tab_id = db.add_tab(title, artist, type_, tuning, capo, difficulty, content)
+    return jsonify({'id': tab_id}), 201
+
 if __name__ == "__main__":
     app.run(debug=True)

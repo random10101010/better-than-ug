@@ -51,3 +51,14 @@ class Database:
             c = conn.cursor()
             c.execute('SELECT * FROM tabs WHERE id=?', (tab_id,))
             return c.fetchone()
+    
+    def add_tab(self, title, artist, type_, tuning, capo, difficulty, content):
+        with self._connect() as conn:
+            c = conn.cursor()
+            c.execute('''
+                INSERT INTO tabs (title, artist, type, tuning, capo, difficulty, content)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+            ''', (title, artist, type_, tuning, capo, difficulty, content))
+            conn.commit()
+            return c.lastrowid
+

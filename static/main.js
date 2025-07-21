@@ -91,3 +91,78 @@ class TabDetail extends HTMLElement {
     }
 }
 customElements.define('tab-detail', TabDetail);
+
+
+class TabImport extends HTMLElement {
+    constructor() {
+        super();
+        this.attachShadow({mode:'open'});
+    }
+    connectedCallback() {
+        this.render();
+    }
+    render() {
+        this.shadowRoot.innerHTML = `
+            <form id="importForm" style="background:#f9f9f9;padding:18px 20px 12px 20px;border-radius:10px;box-shadow:0 2px 6px #0001;margin-bottom:28px;">
+                <h3 style="margin-top:0;margin-bottom:16px;color:#222;">Import Guitar Tab</h3>
+                <div style="margin-bottom:10px;">
+                  <label>Song Title<br><input name="title" required style="width:100%;padding:7px;margin-top:3px;"></label>
+                </div>
+                <div style="margin-bottom:10px;">
+                  <label>Artist<br><input name="artist" required style="width:100%;padding:7px;margin-top:3px;"></label>
+                </div>
+                <div style="margin-bottom:10px;">
+                  <label>Type<br>
+                    <select name="type" style="width:100%;padding:7px;">
+                      <option value="Tab">Tab</option>
+                      <option value="Chords">Chords</option>
+                    </select>
+                  </label>
+                </div>
+                <div style="margin-bottom:10px;">
+                  <label>Tuning<br><input name="tuning" placeholder="Standard" style="width:100%;padding:7px;margin-top:3px;"></label>
+                </div>
+                <div style="margin-bottom:10px;">
+                  <label>Capo<br><input name="capo" placeholder="e.g. 2" style="width:100%;padding:7px;margin-top:3px;"></label>
+                </div>
+                <div style="margin-bottom:10px;">
+                  <label>Difficulty<br>
+                    <select name="difficulty" style="width:100%;padding:7px;">
+                      <option>Beginner</option>
+                      <option>Intermediate</option>
+                      <option>Advanced</option>
+                    </select>
+                  </label>
+                </div>
+                <div style="margin-bottom:10px;">
+                  <label>Tab Text File (.txt)<br><input type="file" name="tabfile" accept=".txt" required></label>
+                </div>
+                <button type="submit" class="btn" style="margin-top:6px;">Import Tab</button>
+                <span id="importMsg" style="margin-left:18px;font-size:1em;color:#17a317"></span>
+            </form>
+        `;
+
+        const form = this.shadowRoot.getElementById('importForm');
+        const msg = this.shadowRoot.getElementById('importMsg');
+        form.onsubmit = async (e) => {
+            e.preventDefault();
+            msg.textContent = "";
+            const fd = new FormData(form);
+            const resp = await fetch('/api/import_tab', {
+                method: 'POST',
+                body: fd
+            });
+            if (resp.ok) {
+                msg.textContent = "Tab imported!";
+                form.reset();
+                // Refresh the list
+                document.querySelector('tab-list').loadTabs();
+            } else {
+                const error = await resp.json();
+                msg.textContent = "Error: " + (error.error || "Import failed");
+                msg.style.color = "#c31";
+            }
+        };
+    }
+}
+customElements.define('tab-import', TabImport);
