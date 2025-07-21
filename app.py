@@ -1,35 +1,36 @@
-from flask import Flask, jsonify, request, render_template
+from flask import Flask, jsonify, render_template, request
 from db import Database
 
 app = Flask(__name__)
 db = Database()
 
 @app.route('/')
-def index():
+def home():
     return render_template('index.html')
 
-@app.route('/api/songs', methods=['GET'])
-def get_songs():
-    songs = db.get_all_songs()
-    return jsonify([{'id': s[0], 'title': s[1], 'artist': s[2]} for s in songs])
+@app.route('/api/tabs')
+def api_tabs():
+    q = request.args.get('q')
+    data = db.search_tabs(q)
+    # id, title, artist, type, tuning, capo, difficulty
+    res = []
+    for row in data:
+        res.append({
+            'id': row[0], 'title': row[1], 'artist': row[2], 'type': row[3],
+            'tuning': row[4], 'capo': row[5], 'difficulty': row[6]
+        })
+    return jsonify(res)
 
-@app.route('/api/song/<int:song_id>', methods=['GET'])
-def get_song(song_id):
-    song = db.get_song(song_id)
-    if song:
-        return jsonify({'id': song[0], 'title': song[1], 'artist': song[2], 'chords': song[3]})
-    return jsonify({'error': 'Not found'}), 404
+@app.route('/api/tab/<int:tab_id>')
+def api_tab(tab_id):
+    tab = db.get_tab(tab_id)
+    if not tab:
+        return jsonify({'error': 'Not found'}), 404
+    # id, title, artist, type, tuning, capo, difficulty, content
+    return jsonify({
+        'id': tab[0], 'title': tab[1], 'artist': tab[2], 'type': tab[3],
+        'tuning': tab[4], 'capo': tab[5], 'difficulty': tab[6], 'content': tab[7]
+    })
 
-@app.route('/api/song', methods=['POST'])
-def add_song():
-    data = request.json
-    title = data.get('title')
-    artist = data.get('artist')
-    chords = data.get('chords')
-    if not (title and artist and chords):
-        return jsonify({'error': 'Missing data'}), 400
-    song_id = db.add_song(title, artist, chords)
-    return jsonify({'id': song_id}), 201
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True)

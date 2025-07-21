@@ -1,17 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Ultimate Guitar Clone</title>
-    <link rel="stylesheet" href="/static/style.css">
+  <meta charset="UTF-8">
+  <title>Ultimate Guitar Copy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <div class="container mt-5">
-        <h1>Ultimate Guitar Clone</h1>
-        <song-list></song-list>
-        <song-detail></song-detail>
-        <add-song-form></add-song-form>
+  <header>
+    <div class="header-content">
+      <div class="logo">Ultimate Guitar</div>
+      <div class="search-bar">
+        <input type="text" placeholder="Search for songs, artists, chords..." id="searchInput">
+      </div>
     </div>
-    <script src="/static/main.js"></script>
+  </header>
+  <div class="container">
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Top Tabs</a></li>
+        <li><a href="#">Chords</a></li>
+        <li><a href="#">Bass Tabs</a></li>
+        <li><a href="#">Ukulele</a></li>
+        <li><a href="#">Submit Tab</a></li>
+        <li><a href="#">Forum</a></li>
+        <li><a href="#">Lessons</a></li>
+      </ul>
+    </nav>
+    <main>
+      <h1>Latest Guitar Tabs</h1>
+      <tab-list></tab-list>
+      <tab-detail></tab-detail>
+    </main>
+  </div>
+  <footer>
+    &copy; 2025 Ultimate Guitar Copy &ndash; Made for Demo Purposes
+  </footer>
+  <script src="/static/main.js"></script>
 </body>
 </html>

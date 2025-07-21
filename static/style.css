@@ -1,74 +1,245 @@
 body {
-    font-family: "Segoe UI", Arial, sans-serif;
-    background: #f8f9fa;
-    margin: 0;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f6f6f6;
+}
+
+header {
+  background: #222;
+  color: #fff;
+  padding: 16px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 1.6em;
+  letter-spacing: 2px;
+  color: #ffd700;
+}
+
+.search-bar input {
+  padding: 8px;
+  border-radius: 4px;
+  border: none;
+  width: 250px;
+  font-size: 1em;
+  background: #fff;
+  color: #222;
+  transition: box-shadow 0.2s;
+  box-shadow: 0 2px 4px #0001;
+}
+
+.search-bar input:focus {
+  outline: none;
+  box-shadow: 0 2px 8px #ffd70055;
 }
 
 .container {
-    max-width: 700px;
-    margin: 2rem auto;
-    background: #fff;
-    padding: 2rem;
-    border-radius: 1rem;
-    box-shadow: 0 0.2rem 1rem rgba(0,0,0,0.1);
+  display: flex;
+  max-width: 1200px;
+  margin: 24px auto;
+  gap: 24px;
 }
 
-h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1.5rem;
-    color: #212529;
+nav {
+  background: #fff;
+  min-width: 220px;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px #0002;
+  height: fit-content;
 }
 
-.list-group {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 2rem;
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.list-group-item {
-    padding: 0.75rem 1.25rem;
-    margin-bottom: 0.5rem;
-    border: 1px solid #dee2e6;
-    border-radius: 0.375rem;
-    background: #fff;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-.list-group-item:hover {
-    background: #e9ecef;
+nav li {
+  margin: 12px 0;
 }
 
-.form-group {
-    margin-bottom: 1rem;
+nav a {
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 3px 0;
+  display: block;
+  border-radius: 4px;
+  transition: color 0.2s, background 0.2s;
 }
 
-input, textarea {
+nav a:hover {
+  color: #ffd700;
+  background: #f6f6f6;
+}
+
+main {
+  flex: 1;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px #0002;
+  padding: 24px;
+  min-height: 400px;
+  overflow: visible;
+}
+
+/* Tab List styles */
+tab-list, tab-detail {
+  display: block;
+  width: 100%;
+}
+
+.tab-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.tab-item {
+  margin-bottom: 24px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 16px;
+  transition: background 0.15s;
+}
+
+.tab-item:last-child {
+  border-bottom: none;
+}
+
+.tab-title {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #222;
+}
+
+.tab-meta {
+  color: #666;
+  font-size: 0.95em;
+  margin-top: 2px;
+}
+
+.tab-actions {
+  margin-top: 8px;
+  display: flex;
+  gap: 10px;
+}
+
+.tab-actions button,
+#closeBtn,
+.view-btn,
+.fav-btn {
+  margin-top: 0;
+  background: #ffd700;
+  border: none;
+  padding: 7px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: 500;
+  transition: background 0.18s, box-shadow 0.18s;
+  box-shadow: 0 1px 3px #0001;
+}
+
+.tab-actions button:hover,
+#closeBtn:hover,
+.view-btn:hover,
+.fav-btn:hover {
+  background: #ffc300;
+}
+
+/* Tab detail popup/modal */
+tab-detail {
+  display: none;
+  margin-top: 30px;
+}
+
+tab-detail[style*="display: block"] {
+  display: block !important;
+  z-index: 10;
+}
+
+tab-detail > div,
+tab-detail ::slotted(div) {
+  background: #fff;
+  box-shadow: 0 2px 8px #0002;
+  border-radius: 10px;
+  padding: 24px;
+  margin-top: 0;
+}
+
+tab-detail h2 {
+  margin: 0 0 4px 0;
+  font-size: 1.25em;
+  font-weight: bold;
+  color: #222;
+}
+
+tab-detail .tab-meta {
+  color: #666;
+  margin-bottom: 12px;
+  font-size: 0.96em;
+}
+
+tab-detail pre {
+  white-space: pre-wrap;
+  font-family: monospace;
+  background: #f8f8f8;
+  padding: 16px;
+  border-radius: 8px;
+  font-size: 1em;
+  margin-top: 10px;
+  margin-bottom: 0;
+  overflow-x: auto;
+}
+
+#closeBtn {
+  display: inline-block;
+  margin-top: 14px;
+}
+
+/* Responsive styles */
+@media (max-width: 800px) {
+  .container {
+    flex-direction: column;
+    gap: 0;
+  }
+  nav {
+    min-width: 0;
+    margin-bottom: 20px;
+  }
+  main {
+    padding: 14px;
+  }
+  .header-content {
+    flex-direction: column;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 0 12px;
+  }
+  .search-bar input {
     width: 100%;
-    padding: 0.5rem;
-    border: 1px solid #ced4da;
-    border-radius: 0.375rem;
-    margin-bottom: 0.5rem;
+    min-width: 0;
+  }
 }
 
-.btn {
-    background: #007bff;
-    color: #fff;
-    padding: 0.5rem 1.25rem;
-    border: none;
-    border-radius: 0.375rem;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-.btn:hover {
-    background: #0056b3;
-}
-
-#song-detail {
-    margin-bottom: 2rem;
-    border: 1px solid #dee2e6;
-    padding: 1rem;
-    border-radius: 0.375rem;
-    background: #f1f3f4;
-    display: none;
+footer {
+  text-align: center;
+  padding: 24px 0;
+  background: #222;
+  color: #fff;
+  margin-top: 36px;
+  border-top: 1px solid #111;
 }
